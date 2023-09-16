@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "pyproger"
+version = "0.1.0"
+description = "Blog about python "
+authors = ["Sergey Vanyushkin <pi3c@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+flask = "^2.3.3"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
