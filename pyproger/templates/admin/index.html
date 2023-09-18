@@ -1,0 +1,39 @@
+{% extends 'admin/master.html' %}
+{% block body %}
+{{ super() }}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+      <h1>Админ панель</h1>
+      <p class="lead">
+        Авторизация
+      </p>
+      <p>
+        Админ панель блога <a href="https://pyproger.ru"
+          target="_blank">pyproger.ru</a>
+      </p>
+      {% if not current_user.is_authenticated %}
+      <p>Войдите используя Ваш логин и пароль.
+      <br><br>
+      По всем вопросам обращайтесь к администратору:
+      <ul>
+        <li>Сергей Ванюшкин: <b>pi3c@yandex.ru</b></li>
+      </ul>
+      <p>
+        <a class="btn btn-primary" href="{{ url_for('security.login') }}">Войти</a>
+      </p>
+      <p>
+      {% else %}
+        {% if current_user.first_name %}
+          {{ current_user.first_name }}
+        {% else %}
+          {{ current_user.email }}
+        {% endif %}, добро пожаловать.
+      {% endif %}
+      <p>
+      <a class="btn btn-primary" href="/"><i class="glyphicon glyphicon-chevron-left"></i>На главную</a>
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock body %}
