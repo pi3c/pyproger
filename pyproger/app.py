@@ -41,6 +41,10 @@ def create_app(test_config=None):
     admin.add_view(TagView(Tag, db.session, category="posts"))
     admin.add_view(PostView(Post, db.session, category="posts"))
 
+    from pyproger.cli.commands import bp_cli
+
+    app.register_blueprint(bp_cli)
+
     @security.context_processor
     def security_context_processor():
         return dict(

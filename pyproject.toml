@@ -15,6 +15,7 @@ flask-security-too = "^5.3.0"
 flask-migrate = "^4.0.5"
 flask-admin = "^1.6.1"
 psycopg2 = "^2.9.7"
+click = "^8.1.7"
 
 
 [build-system]
