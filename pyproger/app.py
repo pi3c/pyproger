@@ -1,6 +1,4 @@
-import os
-
-from flask import Flask, render_template_string, request, url_for
+from flask import Flask, render_template_string, url_for
 from flask_admin import helpers
 from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
@@ -18,12 +16,6 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    # Проверям/создаем папку instanse
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-
     db.init_app(app)
 
     ckeditor = CKEditor()
@@ -40,10 +32,10 @@ def create_app(test_config=None):
 
     from pyproger.admin.views import PostView, RoleView, TagView, UserView
 
-    admin.add_view(RoleView(Role, db.session, category="admin"))
-    admin.add_view(UserView(User, db.session, category="admin"))
-    admin.add_view(TagView(Tag, db.session, category="posts"))
-    admin.add_view(PostView(Post, db.session, category="posts"))
+    admin.add_view(RoleView(Role, db.session, category="Пользователи"))
+    admin.add_view(UserView(User, db.session, category="Пользователи"))
+    admin.add_view(TagView(Tag, db.session, category="Посты"))
+    admin.add_view(PostView(Post, db.session, category="Посты"))
 
     from pyproger.cli.commands import bp_cli
 
