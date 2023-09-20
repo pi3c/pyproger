@@ -1,8 +1,8 @@
 """initial_migration
 
-Revision ID: 70be0dbb9fbb
+Revision ID: af05a1cbd975
 Revises: 
-Create Date: 2023-09-18 21:01:48.648924
+Create Date: 2023-09-19 22:57:11.510132
 
 """
 import flask_security
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision = "70be0dbb9fbb"
+revision = "af05a1cbd975"
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -35,7 +35,7 @@ def upgrade():
     )
     op.create_table(
         "tag",
-        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("tag", sa.String(length=20), nullable=True),
         sa.PrimaryKeyConstraint("id"),
     )
@@ -76,9 +76,9 @@ def upgrade():
     )
     op.create_table(
         "post",
-        sa.Column("id", sa.Integer(), nullable=False),
+        sa.Column("id", sa.Integer(), autoincrement=True, nullable=False),
         sa.Column("author", sa.Integer(), nullable=True),
-        sa.Column("slug", sa.String(length=30), nullable=True),
+        sa.Column("slug", sa.String(length=30), nullable=False),
         sa.Column("title", sa.String(length=50), nullable=False),
         sa.Column("published", sa.Boolean(), nullable=True),
         sa.Column("create_datetime", sa.DateTime(), nullable=True),
@@ -88,7 +88,7 @@ def upgrade():
             ["author"],
             ["user.id"],
         ),
-        sa.PrimaryKeyConstraint("id", "slug"),
+        sa.PrimaryKeyConstraint("id"),
         sa.UniqueConstraint("id"),
     )
     op.create_table(

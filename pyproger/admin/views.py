@@ -1,5 +1,6 @@
 from flask import abort, redirect, request, url_for
 from flask_admin.contrib import sqla
+from flask_ckeditor import CKEditorField
 from flask_security import current_user
 
 
@@ -47,15 +48,20 @@ class TagView(MyAdminView):
 
 
 class PostView(MyAdminView):
-    # form_excluded_columns = ("author", "create_datetime", "update_datetime")
-    column_list = (
-        "title",
-        "published",
-    )
-    column_labels = dict(
-        tags="Tags",
-        title="Title",
-        author="Author",
-        published="Published",
-        published_datetime="Pubdate",
-    )
+    # # form_excluded_columns = ("author", "create_datetime", "update_datetime")
+    # column_list = (
+    #     "title",
+    #     "published",
+    # )
+    # column_labels = dict(
+    #     tags="Tags",
+    #     title="Title",
+    #     author="Author",
+    #     published="Published",
+    #     published_datetime="Pubdate",
+    # )
+
+    # override form type with CKEditorField
+    form_overrides = dict(text=CKEditorField)
+    create_template = "admin/edit.html"
+    edit_template = "admin/edit.html"

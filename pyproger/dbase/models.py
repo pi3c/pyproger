@@ -31,7 +31,7 @@ tag_post = db.Table(
 class Tag(db.Model):
     __tablename__ = "tag"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     tag = Column(String(20))
 
     def __str__(self) -> str:
@@ -40,9 +40,11 @@ class Tag(db.Model):
 
 class Post(db.Model):
     __tablename__ = "post"
-    id = Column(Integer, primary_key=True, nullable=False, unique=True)
+    id = Column(
+        Integer, primary_key=True, nullable=False, unique=True, autoincrement=True
+    )
     author = Column(Integer, db.ForeignKey("user.id"))
-    slug = Column(String(30), primary_key=True, nullable=True)
+    slug = Column(String(30), nullable=False)
     title = Column(String(50), nullable=False)
     published = Column(Boolean, default=False)
     tags = db.relationship("Tag", secondary=tag_post)

@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, render_template_string, request, url_for
 from flask_admin import helpers
+from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
 from flask_security.core import Security
 
@@ -24,6 +25,9 @@ def create_app(test_config=None):
         pass
 
     db.init_app(app)
+
+    ckeditor = CKEditor()
+    ckeditor.init_app(app)
 
     security = Security(app, user_datastore)
 
@@ -56,7 +60,6 @@ def create_app(test_config=None):
 
     @app.route("/ping")
     def hello():
-        logging.info("Проверка  ping-pong")
         return render_template_string("pong")
 
     return app
