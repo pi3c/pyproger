@@ -39,10 +39,38 @@ def create_app(test_config=None):
 
     from pyproger.admin.views import PostView, RoleView, TagView, UserView
 
-    admin.add_view(RoleView(Role, db.session, category="Пользователи"))
-    admin.add_view(UserView(User, db.session, category="Пользователи"))
-    admin.add_view(TagView(Tag, db.session, category="Посты"))
-    admin.add_view(PostView(Post, db.session, category="Посты"))
+    admin.add_view(
+        RoleView(
+            Role,
+            db.session,
+            category="Пользователи",
+            name="Роли",
+        )
+    )
+    admin.add_view(
+        UserView(
+            User,
+            db.session,
+            category="Пользователи",
+            name="Юзеры",
+        )
+    )
+    admin.add_view(
+        TagView(
+            Tag,
+            db.session,
+            category="Посты",
+            name="Тэги постов",
+        )
+    )
+    admin.add_view(
+        PostView(
+            Post,
+            db.session,
+            category="Посты",
+            name="Посты",
+        )
+    )
 
     from pyproger.cli.commands import bp_cli
 

@@ -34,6 +34,24 @@ class UserView(MyAdminView):
         "active",
         "roles",
     )
+    column_labels = dict(
+        first_name="Имя",
+        last_name="Фамилия",
+        posts="Посты",
+        roles="Роли",
+        email="Эл. почта",
+        username="Ник",
+        password="Хэш пароля",
+        active="Активирован",
+        confirmed_at="Подтвержден",
+        last_login_at="Последний login",
+        current_login_at="Текущий login",
+        last_login_ip="Последний ip",
+        current_login_ip="Текущий ip",
+        login_count="Кол-во входов",
+        create_datetime="Дата создания",
+        update_datetime="Дата обновления",
+    )
 
 
 class RoleView(MyAdminView):
@@ -41,25 +59,35 @@ class RoleView(MyAdminView):
         "name",
         "description",
     )
+    column_labels = dict(name="Название", description="Описание")
 
 
 class TagView(MyAdminView):
-    pass
+    column_labels = dict(tag="Тэг")
 
 
 class PostView(MyAdminView):
-    # # form_excluded_columns = ("author", "create_datetime", "update_datetime")
-    # column_list = (
-    #     "title",
-    #     "published",
-    # )
-    # column_labels = dict(
-    #     tags="Tags",
-    #     title="Title",
-    #     author="Author",
-    #     published="Published",
-    #     published_datetime="Pubdate",
-    # )
+    #     form_excluded_columns = (
+    #         "author",
+    #         "create_datetime",
+    #         "update_datetime",
+    #         "text",
+    #     )
+    column_list = (
+        "title",
+        "published",
+        "tags",
+    )
+    column_labels = dict(
+        tags="Тэги",
+        slug="Слаг",
+        title="Заголовок",
+        author="Автор",
+        published="Опубликовано",
+        create_datetime="Дата создания",
+        update_datetime="Дата обновления",
+        text="Текст",
+    )
 
     # override form type with CKEditorField
     form_overrides = dict(text=CKEditorField)
