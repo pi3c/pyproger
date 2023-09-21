@@ -16,6 +16,13 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
+    from .translations import babel
+    from .translations import bp as bp_translate
+    from .translations import get_locale
+
+    babel.init_app(app, locale_selector=get_locale)
+    app.register_blueprint(bp_translate)
+
     db.init_app(app)
 
     ckeditor = CKEditor()
@@ -48,6 +55,12 @@ def create_app(test_config=None):
             admin_view=admin.index_view,
             h=helpers,
             get_url=url_for,
+        )
+
+    @app.context_processor
+    def utility_processor():
+        return dict(
+            page_lang=get_locale(),
         )
 
     @app.route("/ping")

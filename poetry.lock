@@ -20,6 +20,17 @@ typing-extensions = ">=4"
 tz = ["python-dateutil"]
 
 [[package]]
+name = "babel"
+version = "2.12.1"
+description = "Internationalization utilities"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "Babel-2.12.1-py3-none-any.whl", hash = "sha256:b4246fb7677d3b98f501a39d43396d3cafdc8eadb045f4a31be01863f655c610"},
+    {file = "Babel-2.12.1.tar.gz", hash = "sha256:cc2d99999cd01d44420ae725a21c9e3711b3aadc7976d6147f622d8581963455"},
+]
+
+[[package]]
 name = "blinker"
 version = "1.6.2"
 description = "Fast, simple object-to-object and broadcast signaling"
@@ -129,6 +140,23 @@ wtforms = "*"
 [package.extras]
 aws = ["boto"]
 azure = ["azure-storage-blob"]
+
+[[package]]
+name = "flask-babel"
+version = "3.1.0"
+description = "Adds i18n/l10n support for Flask applications."
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "flask_babel-3.1.0-py3-none-any.whl", hash = "sha256:deb3ee272d5adf97f5974ed09ab501243d63e7fb4a047501a00de4bd4aca4830"},
+    {file = "flask_babel-3.1.0.tar.gz", hash = "sha256:be015772c5d7f046f3b99c508dcf618636eb93d21b713b356db79f3e79f69f39"},
+]
+
+[package.dependencies]
+Babel = ">=2.12"
+Flask = ">=2.0"
+Jinja2 = ">=3.1"
+pytz = ">=2022.7"
 
 [[package]]
 name = "flask-ckeditor"
@@ -539,6 +567,17 @@ files = [
 ]
 
 [[package]]
+name = "pytz"
+version = "2023.3.post1"
+description = "World timezone definitions, modern and historical"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pytz-2023.3.post1-py2.py3-none-any.whl", hash = "sha256:ce42d816b81b68506614c11e8937d3aa9e41007ceb50bfdcb0749b921bf646c7"},
+    {file = "pytz-2023.3.post1.tar.gz", hash = "sha256:7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b"},
+]
+
+[[package]]
 name = "sqlalchemy"
 version = "2.0.20"
 description = "Database Abstraction Library"
@@ -664,4 +703,4 @@ email = ["email-validator"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "478d9db5ee4ac55f1f1c92cac45605f713462b70072ca9125c6bb88fa15a98d0"
+content-hash = "63169951638948867f57f4680c69b6f55c929f9ab903261bfd1fa16ed7a5f2e2"

@@ -1,3 +1,5 @@
+import os
+
 FLASK_ADMIN_SWATCH = "slate"
 # Create secret key so we can use sessions
 # python3: secrets.token_urlsafe()
@@ -35,3 +37,7 @@ SECURITY_SEND_REGISTER_EMAIL = False
 SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
 SECURITY_SEND_PASSWORD_RESET_EMAIL = False
 SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = False
+
+# Flask-Babel
+LANGUAGES = ["ru"]
+BABEL_TRANSLATION_DIRECTORIES = os.path.join(os.path.curdir, "translations")
