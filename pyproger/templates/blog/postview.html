@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block menu_title %}
+{{ menu_title }}
+{% endblock %}
+
+{% block content %}
+<!-- Main Content-->
+<div class="conteiner">
+  <br>
+  <h4>{{ post.Post.title | safe }}</h4>
+  {{ post.Post.text | safe }}
+</div>
+
+{% endblock %}

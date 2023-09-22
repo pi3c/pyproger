@@ -1,5 +1,6 @@
 import datetime
 
+from flask_security import current_user
 from flask_security.models import fsqla
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 
@@ -69,8 +70,9 @@ class Post(db.Model):
         autoincrement=True,
     )
     author = Column(Integer, db.ForeignKey("user.id"))
-    slug = Column(String(30), nullable=False)
-    title = Column(String(50), nullable=False)
+    slug = Column(String(100), nullable=False)
+    title = Column(Text, nullable=False)
+    description = Column(Text, nullable=False)
     published = Column(Boolean, default=False)
     tags = db.relationship("Tag", secondary=tag_post)
 
@@ -82,5 +84,6 @@ class Post(db.Model):
     update_datetime = Column(
         DateTime(),
         nullable=True,
+        onupdate=datetime.datetime.utcnow(),
     )
     text = Column(Text)

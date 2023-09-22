@@ -1,0 +1,58 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} 
+  {{title}}
+{% endblock %}
+
+{% block menu_title %}
+  {{ menu_title }}
+{% endblock %}
+
+{% block content %}
+  <div class="conteiner">
+    <br>
+  </div>
+
+  <div class="container px-4 px-lg-5"> 
+    <div class="list-group justify-content-center"> 
+
+      {% for p in posts %}
+      <a href="{{ url_for(".post", slug=p.Post.slug )}}" class="list-group-item list-group-item-action border-0"> 
+            <h5 class="post-title">{{ p.Post.title | safe }}</h5> 
+            {{ p.Post.description | safe}}
+          </a>
+          <small>
+              Опубликовал 
+              <a href="mailto:{{p.User.email}}">
+                {{ p.User.username}}
+              </a> 
+                {{ p.Post.create_datetime.strftime('%d %B, %Y') }}
+          </small>
+        <hr class="my-4" />
+      {% endfor %}
+  </div>
+  
+  <nav class="container">
+    <ul class="pagination  justify-content-start"
+      {% if posts.has_prev %}
+        <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=posts.prev_num)}}">&lt;&lt;</a></li>
+      {% else %}
+        <li class="page-item disabled"><a class="page-link" >&lt;&lt;</a></li>
+      {% endif %} 
+      
+      {% for i in list_pages %}
+          {% if i == page %}
+            <li class="page-item active"><a class="page-link" href="{{ url_for(".index", page=i)}}">{{ i }}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=i)}}">{{ i }}</a></li>
+          {% endif %}
+      {% endfor %}
+      
+      {% if posts.has_next %}
+        <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=posts.next_num)}}">&gt;&gt;</a></li>
+      {% else %}
+        <li class="page-item disabled"><a class="page-link" >&gt;&gt;</a></li>
+      {% endif %} 
+
+  </nav>
+{% endblock %}

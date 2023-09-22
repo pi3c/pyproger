@@ -1,4 +1,4 @@
-from flask import abort, redirect, request, url_for
+from flask import abort, g, redirect, request, url_for
 from flask_admin.contrib import sqla
 from flask_ckeditor import CKEditorField
 from flask_security import current_user
@@ -72,6 +72,7 @@ class PostView(MyAdminView):
         tags="Тэги",
         slug="Слаг",
         title="Заголовок",
+        description="Краткое описание статьи",
         author="Автор",
         published="Опубликовано",
         create_datetime="Дата создания",
@@ -79,6 +80,10 @@ class PostView(MyAdminView):
         text="Текст",
     )
 
-    form_overrides = dict(text=CKEditorField)
+    form_overrides = dict(
+        title=CKEditorField,
+        description=CKEditorField,
+        text=CKEditorField,
+    )
     create_template = "admin/edit.html"
     edit_template = "admin/edit.html"
