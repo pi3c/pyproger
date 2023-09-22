@@ -13,17 +13,10 @@ class MyAdminView(sqla.ModelView):
         )
 
     def _handle_view(self, name, **kwargs):
-        """
-        Override builtin _handle_view in
-        order to redirect users when a
-        view is not accessible.
-        """
         if not self.is_accessible():
             if current_user.is_authenticated:
-                # permission denied
                 abort(403)
             else:
-                # login
                 return redirect(url_for("security.login", next=request.url))
 
 
@@ -59,7 +52,10 @@ class RoleView(MyAdminView):
         "name",
         "description",
     )
-    column_labels = dict(name="Название", description="Описание")
+    column_labels = dict(
+        name="Название",
+        description="Описание",
+    )
 
 
 class TagView(MyAdminView):
@@ -67,12 +63,6 @@ class TagView(MyAdminView):
 
 
 class PostView(MyAdminView):
-    #     form_excluded_columns = (
-    #         "author",
-    #         "create_datetime",
-    #         "update_datetime",
-    #         "text",
-    #     )
     column_list = (
         "title",
         "published",
@@ -89,7 +79,6 @@ class PostView(MyAdminView):
         text="Текст",
     )
 
-    # override form type with CKEditorField
     form_overrides = dict(text=CKEditorField)
     create_template = "admin/edit.html"
     edit_template = "admin/edit.html"
