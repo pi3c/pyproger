@@ -9,11 +9,7 @@
 {% endblock %}
 
 {% block content %}
-  <div class="conteiner">
-    <br>
-  </div>
-
-  <div class="container px-4 px-lg-5"> 
+    <div class="container px-4 px-lg-5"> 
     <div class="list-group justify-content-center"> 
 
       {% for p in posts %}
@@ -22,11 +18,17 @@
             {{ p.Post.description | safe}}
           </a>
           <small>
-              Опубликовал 
-              <a href="mailto:{{p.User.email}}">
-                {{ p.User.username}}
-              </a> 
-                {{ p.Post.create_datetime.strftime('%d %B, %Y') }}
+            
+              {% for t in p.Post.tags %}
+              <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{url_for(".get_posts_by_tag", tag=t.tag )}}">
+                #{{t.tag}}
+              </a>
+              {% endfor %}<br>
+            Опубликовал 
+            <a href="mailto:{{p.User.email}}">
+              {{ p.User.username}} 
+            </a> 
+              {{ p.Post.create_datetime.strftime('%d %B, %Y') }}
           </small>
         <hr class="my-4" />
       {% endfor %}

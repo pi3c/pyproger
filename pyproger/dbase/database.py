@@ -1,17 +1,21 @@
+from logging import error
+
 from . import db
-from .models import Post, User
+from .models import Post, Tag, User
 
 
 def get_paginated_posts(page, per_page):
-    quer = (
+    all_post_query = (
         db.session.query(Post, User)
         .join(User, Post.author == User.id)
         .order_by(Post.create_datetime.desc())
-        .paginate(page=page, per_page=per_page, error_out=False)
+        .paginate(page=page, per_page=per_page, error_out=True)
     )
-    total_pages = quer.total // per_page + [0, 1][quer.total % per_page != 0]
+    total_pages = (
+        all_post_query.total // per_page + [0, 1][all_post_query.total % per_page != 0]
+    )
 
-    return quer, total_pages
+    return all_post_query, total_pages
 
 
 def get_post(slug):
@@ -22,3 +26,23 @@ def get_post(slug):
         .first()
     )
     return post_query
+
+
+def get_tags():
+    tags_query = db.session.query(Tag).order_by(Tag.tag)
+    return tags_query
+
+
+def get_all_posts_by_tag(tag, page, per_page):
+    posts_query = (
+        db.session.query(Post, User)
+        .join(User, Post.author == User.id)
+        .filter(Post.tags.any(Tag.tag == tag))
+        .order_by(Post.create_datetime.desc())
+        .paginate(page=page, per_page=per_page, error_out=True)
+    )
+    total_pages = (
+        posts_query.total // per_page + [0, 1][posts_query.total % per_page != 0]
+    )
+    print(posts_query)
+    return posts_query, total_pages

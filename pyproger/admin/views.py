@@ -1,4 +1,4 @@
-from flask import abort, g, redirect, request, url_for
+from flask import abort, redirect, request, url_for
 from flask_admin.contrib import sqla
 from flask_ckeditor import CKEditorField
 from flask_security import current_user

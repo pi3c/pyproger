@@ -12,8 +12,14 @@
 <!-- Main Content-->
 <div class="conteiner">
   <br>
-  <h4>{{ post.Post.title | safe }}</h4>
-  {{ post.Post.text | safe }}
+  <h4>Тэги статей:</h4>
+  {% for t in tags %}
+  <li> 
+    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{url_for(".get_posts_by_tag", tag=t.tag )}}">
+      #{{t.tag}}
+    </a>
+  </li>
+  {% endfor %}
 </div>
     <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ back_url }}">
       Назад
