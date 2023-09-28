@@ -14,7 +14,7 @@ locale.setlocale(locale.LC_ALL, "")
 @bp.route("/<int:page>", methods=["GET"])
 def index(page=1):
     session["back_url"] = request.url
-    per_page = 4
+    per_page = 2
     posts, total_pages = get_paginated_posts(page, per_page)
     list_pages = [
         x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2

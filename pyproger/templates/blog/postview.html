@@ -1,22 +1,22 @@
 {% extends 'blog/base.html' %}
 
 {% block title %}
-{{title}}
+  {{title}}
 {% endblock %}
 
 {% block menu_title %}
-{{ menu_title }}
+  {{ menu_title }}
 {% endblock %}
 
 {% block content %}
-<!-- Main Content-->
-<div class="conteiner">
+  <div class="conteiner px-4 px-lg-5">
   <br>
   <h4>{{ post.Post.title | safe }}</h4>
   {{ post.Post.text | safe }}
-</div>
-    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ back_url }}">
+  <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ back_url }}">
       Назад
     </a>
 
+  </div>
+    
 {% endblock %}

@@ -9,8 +9,6 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container px-4 px-lg-5"> 
-    <div class="list-group justify-content-center"> 
 
       {% for p in posts %}
       <a href="{{ url_for(".post", slug=p.Post.slug )}}" class="list-group-item list-group-item-action border-0"> 
@@ -30,9 +28,7 @@
             </a> 
               {{ p.Post.create_datetime.strftime('%d %B, %Y') }}
           </small>
-        <hr class="my-4" />
       {% endfor %}
-  </div>
   
   <nav class="container">
     <ul class="pagination  justify-content-start"
@@ -55,6 +51,6 @@
       {% else %}
         <li class="page-item disabled"><a class="page-link" >&gt;&gt;</a></li>
       {% endif %} 
-
+    </ul>
   </nav>
 {% endblock %}
