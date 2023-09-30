@@ -1,5 +1,3 @@
-from logging import error
-
 from . import db
 from .models import Post, Tag, User
 
@@ -44,5 +42,6 @@ def get_all_posts_by_tag(tag, page, per_page):
     total_pages = (
         posts_query.total // per_page + [0, 1][posts_query.total % per_page != 0]
     )
-    print(posts_query)
+    if posts_query.total == 0:
+        return None, None
     return posts_query, total_pages

@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+{{title}}
+{% endblock %}
+
+{% block menu_title %}
+{{ menu_title }}
+{% endblock %}
+
+{% block content %}
+<!-- Main Content-->
+<div class="conteiner ">
+  <div class="conteiner-fluid text-center fs-2 p-3">
+    {{ content_head }}
+  </div>
+
+  <div class="conteiner-fluid text-start p-3">
+    {{ content_body | safe}}
+  </div>
+</div>
+
+{% endblock %}

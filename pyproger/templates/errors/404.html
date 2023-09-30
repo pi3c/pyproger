@@ -1,0 +1,28 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{title}}{% endblock title %}
+   
+{% block menu_title %} {{ menu_title }} {% endblock menu_title %}
+
+{% block content %}
+    <div class="container-fluid p-3">
+        <div class="row text-center p-2">
+           <div class="fs-4">Страница не найдена</div>
+        </div>
+
+        <div class="row text-center p-1">
+           <strong class="fs-1">&lt;404&gt;</strong>
+        </div>
+
+        <div class="row text-center p-1">
+           <div class="fs-6">Запрашиваемая Вами страница не найдена</div>
+           <div class="fs-6">Можете выбрать статьи по темам, перейдя в соответствующий раздел
+           <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover"
+              href="{{ url_for('bp_blog.get_all_tags')}}">по ссылке</a></div>
+           <div class="fs-6">или просмотреть все статьи на <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" 
+              href="{{ url_for('bp_blog.index')}}">главной странице</a></div>
+        </div>
+
+    </div>
+{% endblock content%}
+

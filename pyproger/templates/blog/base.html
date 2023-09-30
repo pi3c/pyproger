@@ -25,7 +25,7 @@
     <nav class="page-header navbar p-2 navbar-expand-lg bg-dark border-bottom border-bottom-dark rounded-bottom-4"
       data-bs-theme="dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="{{ url_for(".index")}}">
+        <a class="navbar-brand" href="{{ url_for("bp_blog.index")}}">
         {% block menu_title %}
         
         {% endblock menu_title %}</a>
@@ -34,8 +34,24 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="text-body navbar-nav me-auto mb-2 mb-lg-0">
-            text
+          <ul class="text-body navbar-nav me-auto mb-2 mb-lg-0 p-3">
+             <li>
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+                 href="{{ url_for('bp_blog.index')}}">Главная
+              </a>
+            </li>
+            <li>
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+                href="{{ url_for('bp_blog.get_all_tags')}}">Статьи по темам</a>
+            </li>
+            <li>
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+                 href="{{ url_for('bp_blog.about') }}">О сайте</a>
+            </li>
+            <li>
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+                 href="{{ url_for('bp_blog.contacts') }}">Контакты</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -101,20 +117,20 @@
           <ul class="list-unstyled mb-0">
             <li>
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                 href="{{ url_for('.index')}}">Главная
+                 href="{{ url_for('bp_blog.index')}}">Главная
               </a>
             </li>
             <li>
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                href="{{ url_for('.get_all_tags')}}">Тэги статей</a>
+                href="{{ url_for('bp_blog.get_all_tags')}}">Статьи по темам</a>
             </li>
             <li>
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                href="#!">О сайте</a>
+                 href="{{ url_for('bp_blog.about') }}">О сайте</a>
             </li>
             <li>
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                href="#">Контакты</a>
+                 href="{{ url_for('bp_blog.contacts') }}">Контакты</a>
             </li>
           </ul>
         </div>

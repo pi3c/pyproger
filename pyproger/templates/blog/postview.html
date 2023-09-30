@@ -9,14 +9,9 @@
 {% endblock %}
 
 {% block content %}
-  <div class="conteiner px-4 px-lg-5">
-  <br>
+  <div class="conteiner p-4 px-lg-5">
   <h4>{{ post.Post.title | safe }}</h4>
   {{ post.Post.text | safe }}
-  <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ back_url }}">
-      Назад
-    </a>
-
   </div>
     
 {% endblock %}

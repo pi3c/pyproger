@@ -80,6 +80,10 @@ def create_app(test_config=None):
 
     app.register_blueprint(bp_blog)
 
+    from pyproger.errors import bp as bp_errors
+
+    app.register_blueprint(bp_errors)
+
     @security.context_processor
     def security_context_processor():
         return dict(

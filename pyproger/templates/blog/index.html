@@ -9,29 +9,30 @@
 {% endblock %}
 
 {% block content %}
-
+    <div class="container">
       {% for p in posts %}
-      <a href="{{ url_for(".post", slug=p.Post.slug )}}" class="list-group-item list-group-item-action border-0"> 
-            <h5 class="post-title">{{ p.Post.title | safe }}</h5> 
-            {{ p.Post.description | safe}}
-          </a>
-          <small>
-            
-              {% for t in p.Post.tags %}
-              <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{url_for(".get_posts_by_tag", tag=t.tag )}}">
-                #{{t.tag}}
-              </a>
-              {% endfor %}<br>
-            Опубликовал 
-            <a href="mailto:{{p.User.email}}">
-              {{ p.User.username}} 
-            </a> 
-              {{ p.Post.create_datetime.strftime('%d %B, %Y') }}
-          </small>
+      <div class="containet-fluid p-3">
+        <a href="{{ url_for(".post", slug=p.Post.slug )}}" class="list-group-item list-group-item-action border-0"> 
+          <h5 class="post-title">{{ p.Post.title | safe }}</h5> 
+          {{ p.Post.description | safe}}
+        </a>
+        <small>
+          {% for t in p.Post.tags %}
+            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{url_for(".get_posts_by_tag", tag=t.tag )}}">
+              #{{t.tag}}
+            </a>
+          {% endfor %}<br>
+          
+          Опубликовал 
+          <a href="mailto:{{p.User.email}}">{{ p.User.username}}</a> 
+          {{ p.Post.create_datetime.strftime('%d %B, %Y') }}
+        </small>
+      </div>
       {% endfor %}
-  
-  <nav class="container">
-    <ul class="pagination  justify-content-start"
+    </div>
+    
+  <nav class="container p-3">
+    <ul class="pagination  justify-content-center"
       {% if posts.has_prev %}
         <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=posts.prev_num)}}">&lt;&lt;</a></li>
       {% else %}

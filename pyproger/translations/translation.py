@@ -1,11 +1,11 @@
 import os
 
-from flask import Blueprint, request
+from flask import Blueprint, current_app, request
 from flask_babel import Babel
 
 
 def get_locale():
-    translations = ["ru"]
+    translations = current_app.config.get("LANGUAGES")
     return request.accept_languages.best_match(translations)
 
 
