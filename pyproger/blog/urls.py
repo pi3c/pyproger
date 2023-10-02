@@ -12,6 +12,8 @@ from flask import (
 
 from ..dbase.database import (
     get_all_posts_by_tag,
+    get_menu_items,
+    get_page,
     get_paginated_posts,
     get_post,
     get_tags,
@@ -31,11 +33,13 @@ def index(page=1):
     list_pages = [
         x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
     ]
+    menu_items = get_menu_items()
     return render_template(
         "blog/index.html",
-        posts=posts,
         title="pyproger - разговоры про питон",
         menu_title="pyproger",
+        menu_items=menu_items,
+        posts=posts,
         page=page,
         total_pages=total_pages,
         list_pages=list_pages,
@@ -51,11 +55,13 @@ def post(slug=None):
 
         if current_post is None:
             return abort(404)
+        menu_items = get_menu_items()
 
         return render_template(
             "blog/postview.html",
             title=f"pyproger - {current_post.Post.title}",
             menu_title="pyproger",
+            menu_items=menu_items,
             post=current_post,
             back_url=back_url,
         )
@@ -66,11 +72,13 @@ def post(slug=None):
 @bp.route("/tags/")
 def get_all_tags():
     tags = get_tags()
+    menu_items = get_menu_items()
     return render_template(
         "blog/tags.html",
-        tags=tags,
         title="pyproger - поиск по тэгу",
         menu_title="pyproger",
+        tags=tags,
+        menu_items=menu_items,
     )
 
 
@@ -89,34 +97,30 @@ def get_posts_by_tag(page=1, tag=None):
     list_pages = [
         x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
     ]
+    menu_items = get_menu_items()
+
     return render_template(
         "blog/index.html",
-        posts=posts,
         title=f"pyproger - посты по {tag}",
         menu_title="pyproger",
+        menu_items=menu_items,
+        posts=posts,
         page=page,
         total_pages=total_pages,
         list_pages=list_pages,
     )
 
 
-@bp.route("/about")
-def about():
+@bp.route("/<path:slug>")
+def page(slug=None):
+    page = get_page(slug)
+    if page is None:
+        abort(404)
+    menu_items = get_menu_items()
     return render_template(
         "blog/page.html",
-        title="pyproger - О сайте",
+        title=f"pyproger - {page.name}",
         menu_title="pyproger",
-        content_head="О сайте",
-        content_body="описание",
-    )
-
-
-@bp.route("/contacts")
-def contacts():
-    return render_template(
-        "blog/page.html",
-        title="pyproger - Контакты",
-        menu_title="pyproger",
-        content_head="Контакты",
-        content_body="описание",
+        menu_items=menu_items,
+        content_body=page.text,
     )

@@ -87,3 +87,15 @@ class PostView(MyAdminView):
     )
     create_template = "admin/edit.html"
     edit_template = "admin/edit.html"
+
+
+class PageView(MyAdminView):
+    column_labels = dict(
+        name="Название страницы",
+        slug="URL страницы",
+        text="Содержимое страницы",
+    )
+
+    form_overrides = dict(text=CKEditorField)
+    create_template = "admin/edit.html"
+    edit_template = "admin/edit.html"

@@ -5,7 +5,8 @@ from flask_migrate import Migrate
 from flask_security.core import Security
 
 from pyproger.dbase import Role, User, db, user_datastore
-from pyproger.dbase.models import Post, Tag
+from pyproger.dbase.database import get_menu_items
+from pyproger.dbase.models import Page, Post, Tag
 
 
 def create_app(test_config=None):
@@ -37,7 +38,7 @@ def create_app(test_config=None):
 
     admin.init_app(app)
 
-    from pyproger.admin.views import PostView, RoleView, TagView, UserView
+    from pyproger.admin.views import PageView, PostView, RoleView, TagView, UserView
 
     admin.add_view(
         RoleView(
@@ -69,6 +70,14 @@ def create_app(test_config=None):
             db.session,
             category="Посты",
             name="Посты",
+        )
+    )
+    admin.add_view(
+        PageView(
+            Page,
+            db.session,
+            category=" Страницы",
+            name="Страницы блога",
         )
     )
 

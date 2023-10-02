@@ -1,6 +1,5 @@
 import datetime
 
-from flask_security import current_user
 from flask_security.models import fsqla
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 
@@ -86,4 +85,18 @@ class Post(db.Model):
         nullable=True,
         onupdate=datetime.datetime.utcnow(),
     )
+    text = Column(Text)
+
+
+class Page(db.Model):
+    __tablename__ = "page"
+    id = Column(
+        Integer,
+        primary_key=True,
+        nullable=False,
+        unique=True,
+        autoincrement=True,
+    )
+    name = Column(String(20))
+    slug = Column(String(50), nullable=False)
     text = Column(Text)

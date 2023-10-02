@@ -1,5 +1,5 @@
 from . import db
-from .models import Post, Tag, User
+from .models import Page, Post, Tag, User
 
 
 def get_paginated_posts(page, per_page):
@@ -45,3 +45,13 @@ def get_all_posts_by_tag(tag, page, per_page):
     if posts_query.total == 0:
         return None, None
     return posts_query, total_pages
+
+
+def get_page(slug):
+    page_query = db.session.query(Page).filter(Page.slug == slug).one_or_none()
+    return page_query
+
+
+def get_menu_items():
+    menu_items = db.session.query(Page.name, Page.slug).all()
+    return menu_items

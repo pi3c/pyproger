@@ -44,14 +44,12 @@
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
                 href="{{ url_for('bp_blog.get_all_tags')}}">Статьи по темам</a>
             </li>
+            {% for m in menu_items %}
             <li>
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                 href="{{ url_for('bp_blog.about') }}">О сайте</a>
+                 href="/{{m.slug}}">{{m.name}}</a>
             </li>
-            <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                 href="{{ url_for('bp_blog.contacts') }}">Контакты</a>
-            </li>
+            {% endfor %}
           </ul>
         </div>
       </div>
@@ -124,14 +122,13 @@
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
                 href="{{ url_for('bp_blog.get_all_tags')}}">Статьи по темам</a>
             </li>
+            
+            {% for m in menu_items %}
             <li>
               <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                 href="{{ url_for('bp_blog.about') }}">О сайте</a>
+                 href="/{{m.slug}}">{{m.name}}</a>
             </li>
-            <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
-                 href="{{ url_for('bp_blog.contacts') }}">Контакты</a>
-            </li>
+            {% endfor %}
           </ul>
         </div>
         <!--Grid column-->
