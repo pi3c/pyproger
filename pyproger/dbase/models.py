@@ -2,6 +2,7 @@ import datetime
 
 from flask_security.models import fsqla
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
+from sqlalchemy.sql import func
 
 from . import db
 
@@ -78,12 +79,13 @@ class Post(db.Model):
     create_datetime = Column(
         DateTime(),
         nullable=True,
-        default=datetime.datetime.utcnow(),
+        default=func.now(),
     )
     update_datetime = Column(
         DateTime(),
         nullable=True,
-        onupdate=datetime.datetime.utcnow(),
+        default=func.now(),
+        onupdate=func.now(),
     )
     text = Column(Text)
 

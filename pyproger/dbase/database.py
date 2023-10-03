@@ -1,3 +1,7 @@
+from datetime import datetime, timezone
+
+from sqlalchemy import func
+
 from . import db
 from .models import Page, Post, Tag, User
 
@@ -55,3 +59,21 @@ def get_page(slug):
 def get_menu_items():
     menu_items = db.session.query(Page.name, Page.slug).all()
     return menu_items
+
+
+def get_posts_for_sitemap():
+    posts = (
+        db.session.query(
+            Post.slug,
+            Post.update_datetime,
+        )
+        .filter(Post.published.is_(True))
+        .all()
+    )
+    return posts
+
+
+def get_pages_for_sitemap():
+    pages = db.session.query(Page.slug).all()
+    date = datetime.utcnow().strftime("%Y-%m-%d")
+    return pages, date

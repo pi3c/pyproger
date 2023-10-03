@@ -1,0 +1,37 @@
+User-agent: Yandex
+Disallow: /?
+Disallow: /admin/
+Disallow: /static/
+Disallow: /post/$
+Disallow: /tag/
+Disallow: /tags/
+Allow: /static/*.css
+Allow: /static/*.js
+Allow: /static/*.png
+Allow: /static/*.jpg
+Allow: /static/*.gif
+
+User-agent: GoogleBot
+Disallow: /?
+Disallow: /admin/
+Disallow: /static/
+Disallow: /post/$
+Disallow: /tag/
+Disallow: /tags/
+Allow: /static/*.css
+Allow: /static/*.js
+Allow: /static/*.png
+Allow: /static/*.jpg
+Allow: /static/*.gif
+
+User-agent: *
+Disallow: /?
+Disallow: /admin/
+Disallow: /static/
+Disallow: /post/$
+Disallow: /tag/
+Disallow: /tags/
+Crawl-Delay: 5
+
+Sitemap: https://pyproger.ru/sitemap.xml
+Host: https://pyproger.ru

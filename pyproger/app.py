@@ -93,6 +93,10 @@ def create_app(test_config=None):
 
     app.register_blueprint(bp_errors)
 
+    from pyproger.robots.robots import bp as bp_robots
+
+    app.register_blueprint(bp_robots)
+
     @security.context_processor
     def security_context_processor():
         return dict(

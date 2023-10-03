@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
+  {% for p in sm_posts %}
+    <url>
+      <loc>http://www.pyproger.ru/post/{{ p.slug }}</loc>
+      <lastmod>{{ p.update_datetime.strftime('%Y-%m-%d') }}</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+    </url>
+  {% endfor %}
+</urlset>
