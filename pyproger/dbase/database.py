@@ -71,9 +71,3 @@ def get_posts_for_sitemap():
         .all()
     )
     return posts
-
-
-def get_pages_for_sitemap():
-    pages = db.session.query(Page.slug).all()
-    date = datetime.utcnow().strftime("%Y-%m-%d")
-    return pages, date

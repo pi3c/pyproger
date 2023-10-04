@@ -102,3 +102,8 @@ class Page(db.Model):
     name = Column(String(20))
     slug = Column(String(50), nullable=False)
     text = Column(Text)
+    update_datetime = Column(
+        DateTime(),
+        default=func.now(),
+        onupdate=func.now(),
+    )
