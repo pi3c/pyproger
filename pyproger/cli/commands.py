@@ -25,10 +25,21 @@ def create_superuser(name):
     password = input("Пароль:\n")
 
     with current_app.app_context():
-        user_role = Role(name="user")
-        super_user_role = Role(name="superuser")
-        db.session.add(user_role)
-        db.session.add(super_user_role)
+
+        def check_role(name):
+            role = db.session.query(Role).filter(Role.name == name).one_or_none()
+            return role
+
+        user_role = check_role("user")
+        if user_role is None:
+            user_role = Role(name="user")
+            db.session.add(user_role)
+
+        super_user_role = check_role("superuser")
+        if super_user_role is None:
+            Role(name="superuser")
+            db.session.add(super_user_role)
+
         db.session.commit()
 
         super_user = user_datastore.create_user(

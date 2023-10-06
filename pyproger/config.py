@@ -4,7 +4,7 @@ import os
 FLASK_ADMIN_SWATCH = "slate"
 
 # python3: secrets.token_urlsafe()
-SECRET_KEY = "hxfjbcfry52"
+SECRET_KEY = "Test_secret_key"
 
 # Настройки подключения к бд
 SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://pi3c:@localhost/pyproger"
@@ -14,7 +14,7 @@ SQLALCHEMY_ECHO = False
 # Настройки Flask-Security
 SECURITY_URL_PREFIX = "/admin"
 SECURITY_PASSWORD_HASH = "pbkdf2_sha512"
-SECURITY_PASSWORD_SALT = "ATGUOHAELKiubahiughaerGOJAEGj"
+SECURITY_PASSWORD_SALT = "Password_salt"
 SECURITY_TRACKABLE = True
 
 SECURITY_LOGIN_URL = "/login/"
@@ -44,5 +44,6 @@ CKEDITOR_PKG_TYPE = "full"
 CKEDITOR_SERVE_LOCAL = True
 CKEDITOR_ENABLE_CODESNIPPET = True
 CKEDITOR_CODE_THEME = "monokai_sublime"
+
 # Настройки блога
 POSTS_ON_PAGE = 2

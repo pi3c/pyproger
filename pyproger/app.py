@@ -1,3 +1,6 @@
+import os
+
+from dotenv import load_dotenv
 from flask import Flask, render_template_string, url_for
 from flask_admin import helpers
 from flask_ckeditor import CKEditor
@@ -5,7 +8,6 @@ from flask_migrate import Migrate
 from flask_security.core import Security
 
 from pyproger.dbase import Role, User, db, user_datastore
-from pyproger.dbase.database import get_menu_items
 from pyproger.dbase.models import Page, Post, Tag
 
 
@@ -38,7 +40,8 @@ def create_app(test_config=None):
 
     admin.init_app(app)
 
-    from pyproger.admin.views import PageView, PostView, RoleView, TagView, UserView
+    from pyproger.admin.views import (PageView, PostView, RoleView, TagView,
+                                      UserView)
 
     admin.add_view(
         RoleView(
@@ -81,21 +84,21 @@ def create_app(test_config=None):
         )
     )
 
-    from pyproger.cli.commands import bp_cli
-
-    app.register_blueprint(bp_cli)
-
     from pyproger.blog.blog import bp as bp_blog
-
-    app.register_blueprint(bp_blog)
-
+    from pyproger.cli.commands import bp_cli
     from pyproger.errors import bp as bp_errors
-
-    app.register_blueprint(bp_errors)
-
     from pyproger.robots.robots import bp as bp_robots
 
+    app.register_blueprint(bp_cli)
+    app.register_blueprint(bp_blog)
+    app.register_blueprint(bp_errors)
     app.register_blueprint(bp_robots)
+
+    dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+    if os.path.exists(dotenv_path):
+        load_dotenv(dotenv_path)
+        app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+        app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
 
     @security.context_processor
     def security_context_processor():

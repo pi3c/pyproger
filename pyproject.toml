@@ -18,6 +18,8 @@ psycopg2 = "^2.9.7"
 click = "^8.1.7"
 flask-ckeditor = "^0.4.6"
 flask-babel = "^3.1.0"
+python-dotenv = "^1.0.0"
+werkzeug = "2.3.7"
 
 
 [build-system]
