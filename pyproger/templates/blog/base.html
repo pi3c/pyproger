@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="{{page_lang}}">
+<html lang="ru">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-  <title>
-    {% block title %}
-    {% endblock title %}
-  </title>
+  <title>{% block title %}{% endblock title %}</title>
+  {% for h in headers %}
+  {{h.content | safe}}
+  {% endfor %}
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
   <!-- Font Awesome -->
@@ -67,40 +67,13 @@
   <div class="container p-2">
     <!-- Section: Social media -->
     <section class="mb-2">
-            <!-- Telegram -->
+    {% for l in mylinks %}
       <a class="btn btn-outline-light btn-floating m-2" 
-         href="https://t.me/pi3c_nao" 
+         href="{{ l.link }}" 
          role="button"
-        ><i class="fab fa-telegram"></i
+         ><i class="{{ l.icon }}"></i
       ></a>
-
-      <!-- VK -->
-      <a class="btn btn-outline-light btn-floating m-2" 
-         href="https://m.vk.com/pi3c_nao" 
-         role="button"
-        ><i class="fab fa-vk"></i
-      ></a>
-
-      <!-- Yandex -->
-      <a class="btn btn-outline-light btn-floating m-2" 
-         href="mailto:pi3c@yandex.ru" 
-         role="button"
-        ><i class="fab fa-yandex"></i
-      ></a>
-
-      <!-- Github -->
-      <a class="btn btn-outline-light btn-floating m-2" 
-         href="https://github.com/pi3c" 
-         role="button"
-        ><i class="fab fa-github"></i
-      ></a>
-
-      <!-- Gitea -->
-      <a class="btn btn-outline-light btn-floating m-2" 
-         href="https://git.pi3c.ru" 
-         role="button"
-        ><i class="fa fa-gitea"></i
-      ></a>
+    {% endfor %}
     </section>
     <!-- Section: Social media -->
 
@@ -168,10 +141,10 @@
 
   <!-- Copyright -->
   <small class="text-center text-body">
-    &copy; 2023
-    <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" href="https://pi3c.ru/">Сергей Ванюшкин</a>
+    &copy; {{ copyright.year}}
+    <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" href="{{ copyright.link }}">{{ copyright.name}}</a>
     <br>
-    г.Нарьян-Мар Ненецкий А.О
+    {{copyright.city}}
   </small>
   <!-- Copyright -->
 </footer>

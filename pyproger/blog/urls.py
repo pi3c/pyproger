@@ -1,23 +1,11 @@
 import locale
+import re
 
-from flask import (
-    abort,
-    current_app,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import (abort, current_app, redirect, render_template, request,
+                   session, url_for)
 
-from ..dbase.database import (
-    get_all_posts_by_tag,
-    get_menu_items,
-    get_page,
-    get_paginated_posts,
-    get_post,
-    get_tags,
-)
+from ..dbase.database import (get_all_posts_by_tag, get_page,
+                              get_paginated_posts, get_post, get_tags)
 from .blog import bp
 
 locale.setlocale(locale.LC_ALL, "")
@@ -33,37 +21,46 @@ def index(page=1):
     list_pages = [
         x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
     ]
-    menu_items = get_menu_items()
     return render_template(
         "blog/index.html",
-        title="pyproger - разговоры про питон",
-        menu_title="pyproger",
-        menu_items=menu_items,
+        title=f'{current_app.config.get("BRAND")} - разговоры про питон',
+        headers=current_app.config.get("SITE_HEADERS"),
+        menu_title=current_app.config.get("BRAND"),
+        menu_items=current_app.config.get("MENU_ITEMS"),
         posts=posts,
         page=page,
         total_pages=total_pages,
         list_pages=list_pages,
+        mylinks=current_app.config.get("MYLINKS"),
+        copyright=current_app.config.get("COPYRIGHT"),
     )
 
 
 @bp.route("/post/")
 @bp.route("/post/<path:slug>")
 def post(slug=None):
-    back_url = session.get("back_url")
     if slug is not None:
         current_post = get_post(slug)
 
         if current_post is None:
             return abort(404)
-        menu_items = get_menu_items()
+
+        TAG_RE = re.compile(r"<[^>]+>")
+
+        def remove_tags(text):
+            return TAG_RE.sub("", text)
+
+        title = remove_tags(current_post.Post.title)
 
         return render_template(
             "blog/postview.html",
-            title=f"pyproger - {current_post.Post.title}",
-            menu_title="pyproger",
-            menu_items=menu_items,
+            title=f'{current_app.config.get("BRAND")} - {title}',
+            headers=current_app.config.get("SITE_HEADERS"),
+            menu_title=current_app.config.get("BRAND"),
+            menu_items=current_app.config.get("MENU_ITEMS"),
             post=current_post,
-            back_url=back_url,
+            mylinks=current_app.config.get("MYLINKS"),
+            copyright=current_app.config.get("COPYRIGHT"),
         )
     else:
         abort(404)
@@ -72,13 +69,15 @@ def post(slug=None):
 @bp.route("/tags/")
 def get_all_tags():
     tags = get_tags()
-    menu_items = get_menu_items()
     return render_template(
         "blog/tags.html",
-        title="pyproger - поиск по тэгу",
-        menu_title="pyproger",
+        title=f'{current_app.config.get("BRAND")} - поиск по тэгу',
+        headers=current_app.config.get("SITE_HEADERS"),
+        menu_title=current_app.config.get("BRAND"),
         tags=tags,
-        menu_items=menu_items,
+        menu_items=current_app.config.get("MENU_ITEMS"),
+        mylinks=current_app.config.get("MYLINKS"),
+        copyright=current_app.config.get("COPYRIGHT"),
     )
 
 
@@ -89,25 +88,29 @@ def get_posts_by_tag(page=1, tag=None):
         tag = request.args.get("tag")
         if tag is None:
             return redirect(url_for(".get_all_tags"))
-    per_page = current_app.config.get("POSTS_ON_PAGE")
 
-    posts, total_pages = get_all_posts_by_tag(tag, page, per_page)
+    per_page = current_app.config.get("POSTS_ON_PAGE")
+    posts, total = get_all_posts_by_tag(tag, page, per_page)
+    total_pages = total // per_page + [0, 1][total % per_page != 0]
+
     if posts is None:
         abort(404)
     list_pages = [
         x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
     ]
-    menu_items = get_menu_items()
 
     return render_template(
         "blog/index.html",
-        title=f"pyproger - посты по {tag}",
-        menu_title="pyproger",
-        menu_items=menu_items,
+        title=f'{current_app.config.get("BRAND")} - посты по {tag}',
+        headers=current_app.config.get("SITE_HEADERS"),
+        menu_title=current_app.config.get("BRAND"),
+        menu_items=current_app.config.get("MENU_ITEMS"),
         posts=posts,
         page=page,
         total_pages=total_pages,
         list_pages=list_pages,
+        mylinks=current_app.config.get("MYLINKS"),
+        copyright=current_app.config.get("COPYRIGHT"),
     )
 
 
@@ -116,11 +119,13 @@ def page(slug=None):
     page = get_page(slug)
     if page is None:
         abort(404)
-    menu_items = get_menu_items()
     return render_template(
         "blog/page.html",
-        title=f"pyproger - {page.name}",
-        menu_title="pyproger",
-        menu_items=menu_items,
+        title=f'{current_app.config.get("BRAND")} - {page.name}',
+        headers=current_app.config.get("SITE_HEADERS"),
+        menu_title=current_app.config.get("BRAND"),
+        menu_items=current_app.config.get("MENU_ITEMS"),
         content_body=page.text,
+        mylinks=current_app.config.get("MYLINKS"),
+        copyright=current_app.config.get("COPYRIGHT"),
     )

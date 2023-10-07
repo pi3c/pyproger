@@ -8,7 +8,8 @@ from flask_migrate import Migrate
 from flask_security.core import Security
 
 from pyproger.dbase import Role, User, db, user_datastore
-from pyproger.dbase.models import Page, Post, Tag
+from pyproger.dbase.database import get_headers, get_menu_items
+from pyproger.dbase.models import Page, Post, SiteHeaders, Tag
 
 
 def create_app(test_config=None):
@@ -21,11 +22,7 @@ def create_app(test_config=None):
             load_dotenv(dotenv_path)
             app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
             app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
-            if os.getenv("SQLALCHEMY_DATABASE_URI") is not None:
-                app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
-                    "SQLALCHEMY_DATABASE_URI"
-                )
-
+            app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
     else:
         app.config.from_mapping(test_config)
 
@@ -50,8 +47,8 @@ def create_app(test_config=None):
 
     admin.init_app(app)
 
-    from pyproger.admin.views import (PageView, PostView, RoleView, TagView,
-                                      UserView)
+    from pyproger.admin.views import (HeadersView, PageView, PostView,
+                                      RoleView, TagView, UserView)
 
     admin.add_view(
         RoleView(
@@ -89,8 +86,16 @@ def create_app(test_config=None):
         PageView(
             Page,
             db.session,
-            category=" Страницы",
-            name="Страницы блога",
+            category="Страницы",
+            name="Статические страницы блога",
+        )
+    )
+    admin.add_view(
+        HeadersView(
+            SiteHeaders,
+            db.session,
+            category="Страницы",
+            name="Включаемые в html заголовки",
         )
     )
 
@@ -103,6 +108,12 @@ def create_app(test_config=None):
     app.register_blueprint(bp_blog)
     app.register_blueprint(bp_errors)
     app.register_blueprint(bp_robots)
+
+    with app.app_context():
+        site_headers = get_headers()
+        app.config["SITE_HEADERS"] = site_headers
+        menu_items = get_menu_items()
+        app.config["MENU_ITEMS"] = menu_items
 
     @security.context_processor
     def security_context_processor():

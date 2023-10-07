@@ -1,9 +1,5 @@
-from datetime import datetime, timezone
-
-from sqlalchemy import func
-
 from . import db
-from .models import Page, Post, Tag, User
+from .models import Page, Post, SiteHeaders, Tag, User
 
 
 def get_paginated_posts(page, per_page):
@@ -13,11 +9,7 @@ def get_paginated_posts(page, per_page):
         .order_by(Post.create_datetime.desc())
         .paginate(page=page, per_page=per_page, error_out=True)
     )
-    total_pages = (
-        all_post_query.total // per_page + [0, 1][all_post_query.total % per_page != 0]
-    )
-
-    return all_post_query, total_pages
+    return all_post_query, all_post_query.total
 
 
 def get_post(slug):
@@ -71,3 +63,12 @@ def get_posts_for_sitemap():
         .all()
     )
     return posts
+
+
+def get_headers():
+    headers = (
+        db.session.query(SiteHeaders.content)
+        .filter(SiteHeaders.enabled.is_(True))
+        .all()
+    )
+    return headers

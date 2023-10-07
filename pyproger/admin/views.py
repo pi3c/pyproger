@@ -99,3 +99,16 @@ class PageView(MyAdminView):
     form_overrides = dict(text=CKEditorField)
     create_template = "admin/edit.html"
     edit_template = "admin/edit.html"
+
+
+class HeadersView(MyAdminView):
+    column_labels = dict(
+        name="Название",
+        description="Описание содержимого",
+        content="Содержимое включаемое в header",
+        enabled="Включить код в страницы сайта",
+    )
+    column_list = (
+        "name",
+        "description",
+    )

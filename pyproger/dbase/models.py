@@ -107,3 +107,18 @@ class Page(db.Model):
         default=func.now(),
         onupdate=func.now(),
     )
+
+
+class SiteHeaders(db.Model):
+    __tablename__ = "site_headers"
+    id = Column(
+        Integer,
+        primary_key=True,
+        nullable=False,
+        unique=True,
+        autoincrement=True,
+    )
+    name = Column(String(20))
+    description = Column(Text)
+    content = Column(Text)
+    enabled = Column(Boolean, default=False)
