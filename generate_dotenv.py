@@ -22,3 +22,14 @@ with open(dotenv_path, "a") as f:
         print("_Ok_")
     else:
         print("SECURITY_PASSWORD_SALT уже установлен, пропускаю")
+
+    if os.getenv("SQLALCHEMY_DATABASE_URI") is None:
+        print("Настроки подключения к базе данных Posgresql:")
+        login = input("Введите логин пользователя бд: ")
+        passwd = input("Пароль: ")
+        db = input("Название бд (по умолчанию pyproger):") or "pyproger"
+        ip = input("Адрес бд (по умолчанию localhost)") or "localhost"
+        port = input("Порт подключения: (по умолчанию 5432)") or "5432"
+        f.writelines(
+            f"SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://{login}:{passwd}@{ip}:{port}/{db}"
+        )

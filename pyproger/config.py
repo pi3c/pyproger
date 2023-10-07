@@ -3,11 +3,11 @@ import os
 # Тема оформления админ панели
 FLASK_ADMIN_SWATCH = "slate"
 
-# python3: secrets.token_urlsafe()
+# Тестовый ключ
 SECRET_KEY = "Test_secret_key"
 
 # Настройки подключения к бд
-SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://pi3c:@localhost/pyproger"
+SQLALCHEMY_DATABASE_URI = "sqlite:///sqlite.db"
 # For debug - show every DB query
 SQLALCHEMY_ECHO = False
 
@@ -46,4 +46,4 @@ CKEDITOR_ENABLE_CODESNIPPET = True
 CKEDITOR_CODE_THEME = "monokai_sublime"
 
 # Настройки блога
-POSTS_ON_PAGE = 2
+POSTS_ON_PAGE = 6

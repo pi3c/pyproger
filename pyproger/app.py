@@ -16,6 +16,16 @@ def create_app(test_config=None):
 
     if test_config is None:
         app.config.from_pyfile("config.py", silent=True)
+        dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+        if os.path.exists(dotenv_path):
+            load_dotenv(dotenv_path)
+            app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+            app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
+            if os.getenv("SQLALCHEMY_DATABASE_URI") is not None:
+                app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv(
+                    "SQLALCHEMY_DATABASE_URI"
+                )
+
     else:
         app.config.from_mapping(test_config)
 
@@ -93,12 +103,6 @@ def create_app(test_config=None):
     app.register_blueprint(bp_blog)
     app.register_blueprint(bp_errors)
     app.register_blueprint(bp_robots)
-
-    dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
-    if os.path.exists(dotenv_path):
-        load_dotenv(dotenv_path)
-        app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-        app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
 
     @security.context_processor
     def security_context_processor():
