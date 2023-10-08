@@ -37,7 +37,7 @@ def create_superuser(name):
 
         super_user_role = check_role("superuser")
         if super_user_role is None:
-            Role(name="superuser")
+            super_user_role = Role(name="superuser")
             db.session.add(super_user_role)
 
         db.session.commit()
