@@ -32,7 +32,7 @@ def index(page=1):
         total_pages=total_pages,
         list_pages=list_pages,
         mylinks=current_app.config.get("MYLINKS"),
-        copyright=current_app.config.get("COPYRIGHT"),
+        copyright=current_app.config.get("MYCOPYRIGHT"),
     )
 
 
@@ -60,7 +60,7 @@ def post(slug=None):
             menu_items=current_app.config.get("MENU_ITEMS"),
             post=current_post,
             mylinks=current_app.config.get("MYLINKS"),
-            copyright=current_app.config.get("COPYRIGHT"),
+            copyright=current_app.config.get("MYCOPYRIGHT"),
         )
     else:
         abort(404)
@@ -77,7 +77,7 @@ def get_all_tags():
         tags=tags,
         menu_items=current_app.config.get("MENU_ITEMS"),
         mylinks=current_app.config.get("MYLINKS"),
-        copyright=current_app.config.get("COPYRIGHT"),
+        copyright=current_app.config.get("MYCOPYRIGHT"),
     )
 
 
@@ -110,7 +110,7 @@ def get_posts_by_tag(page=1, tag=None):
         total_pages=total_pages,
         list_pages=list_pages,
         mylinks=current_app.config.get("MYLINKS"),
-        copyright=current_app.config.get("COPYRIGHT"),
+        copyright=current_app.config.get("MYCOPYRIGHT"),
     )
 
 
@@ -127,5 +127,5 @@ def page(slug=None):
         menu_items=current_app.config.get("MENU_ITEMS"),
         content_body=page.text,
         mylinks=current_app.config.get("MYLINKS"),
-        copyright=current_app.config.get("COPYRIGHT"),
+        copyright=current_app.config.get("MYCOPYRIGHT"),
     )

@@ -21,8 +21,21 @@
   </li>
   {% endfor %}
 </div>
-    <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{ back_url }}">
-      Назад
-    </a>
+    
+{% endblock %}
 
+{% block copyright_year %}
+{{ copyright.year }}
+{% endblock %}
+
+{% block copyright_name %}
+{{ copyright.name }}
+{% endblock %}
+
+{% block copyright_link %}
+{{ copyright.link }}
+{% endblock %}
+
+{% block copyright_city %}
+{{ copyright.city }}
 {% endblock %}

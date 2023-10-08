@@ -1,19 +1,18 @@
 import os
 
 # Настройки блога
-BRAND = "pyproger"
-COPYRIGHT = {
+BRAND = "блог"
+MYCOPYRIGHT = {
     "year": "2023",
-    "name": "Сергей Вaнюшкин",
-    "link": "https://pi3c.ru",
-    "city": "г.Нарьян-Мар, Ненецкий А.О.",
+    "name": "Иванов Иван",
+    "link": "http://yandex.ru",
+    "city": "г.Москва",
 }
 MYLINKS = (
-    {"icon": "fab fa-telegram", "link": "https://t.me/pi3c_nao"},
-    {"icon": "fab fa-vk", "link": "https://m.vk.com/pi3c_nao"},
-    {"icon": "fab fa-yandex", "link": "mailto:pi3c@yandex.ru"},
-    {"icon": "fab fa-github", "link": "https://github.com/pi3c"},
-    {"icon": "fa fa-gitea", "link": "https://git.pi3c.ru"},
+    {"icon": "fab fa-telegram", "link": "https://t.me"},
+    {"icon": "fab fa-vk", "link": "https://m.vk.com"},
+    {"icon": "fab fa-yandex", "link": "mailto:user@yandex.ru"},
+    {"icon": "fab fa-github", "link": "https://github.com"},
 )
 POSTS_ON_PAGE = 6
 
