@@ -7,9 +7,12 @@ from flask_ckeditor import CKEditor
 from flask_migrate import Migrate
 from flask_security.core import Security
 
+from pyproger.admin.views import FooterLinksView
 from pyproger.dbase import Role, User, db, user_datastore
-from pyproger.dbase.database import get_headers, get_menu_items
-from pyproger.dbase.models import Page, Post, SiteHeaders, Tag
+from pyproger.dbase.database import (get_footer_links, get_headers,
+                                     get_menu_items)
+from pyproger.dbase.models import (FooterContactLinks, Page, Post, SiteHeaders,
+                                   Tag)
 
 
 def create_app(test_config=None):
@@ -23,6 +26,13 @@ def create_app(test_config=None):
             app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
             app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
             app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
+            app.config["MYCOPYRIGHT"] = {
+                "year": os.getenv("COPYRIGHT_YEAR"),
+                "name": os.getenv("COPYRIGHT_NAME"),
+                "link": os.getenv("COPYRIGHT_LINK"),
+                "city": os.getenv("COPYRIGHT_CITY"),
+            }
+            app.config["BRAND"] = os.getenv("BRAND")
     else:
         app.config.from_mapping(test_config)
 
@@ -98,6 +108,14 @@ def create_app(test_config=None):
             name="Включаемые в html заголовки",
         )
     )
+    admin.add_view(
+        FooterLinksView(
+            FooterContactLinks,
+            db.session,
+            category="Страницы",
+            name="Иконки-ссылки футера",
+        )
+    )
 
     from pyproger.blog.blog import bp as bp_blog
     from pyproger.cli.commands import bp_cli
@@ -110,10 +128,26 @@ def create_app(test_config=None):
     app.register_blueprint(bp_robots)
 
     with app.app_context():
-        site_headers = get_headers()
+        try:
+            site_headers = get_headers()
+        except Exception as e:
+            print(e)
+            site_headers = None
         app.config["SITE_HEADERS"] = site_headers
-        menu_items = get_menu_items()
+
+        try:
+            menu_items = get_menu_items()
+        except Exception as e:
+            print(e)
+            menu_items = None
         app.config["MENU_ITEMS"] = menu_items
+
+        try:
+            links = get_footer_links()
+        except Exception as e:
+            print(e)
+            links = None
+        app.config["MYLINKS"] = links
 
     @security.context_processor
     def security_context_processor():

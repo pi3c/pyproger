@@ -112,3 +112,12 @@ class HeadersView(MyAdminView):
         "name",
         "description",
     )
+
+
+class FooterLinksView(MyAdminView):
+    column_labels = dict(
+        name="Название",
+        bootstrap_ico="Bootstrap код иконки",
+        link="Ссылка",
+    )
+    column_list = ("name",)

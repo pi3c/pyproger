@@ -1,5 +1,5 @@
 from . import db
-from .models import Page, Post, SiteHeaders, Tag, User
+from .models import FooterContactLinks, Page, Post, SiteHeaders, Tag, User
 
 
 def get_paginated_posts(page, per_page):
@@ -72,3 +72,11 @@ def get_headers():
         .all()
     )
     return headers
+
+
+def get_footer_links():
+    links = db.session.query(
+        FooterContactLinks.link,
+        FooterContactLinks.bootstrap_ico,
+    ).all()
+    return links

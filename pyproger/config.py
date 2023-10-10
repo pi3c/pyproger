@@ -1,20 +1,7 @@
 import os
 
 # Настройки блога
-BRAND = "блог"
-MYCOPYRIGHT = {
-    "year": "2023",
-    "name": "Иванов Иван",
-    "link": "http://yandex.ru",
-    "city": "г.Москва",
-}
-MYLINKS = (
-    {"icon": "fab fa-telegram", "link": "https://t.me"},
-    {"icon": "fab fa-vk", "link": "https://m.vk.com"},
-    {"icon": "fab fa-yandex", "link": "mailto:user@yandex.ru"},
-    {"icon": "fab fa-github", "link": "https://github.com"},
-)
-POSTS_ON_PAGE = 6
+MYLIPOSTS_ON_PAGE = 6
 
 # Тема оформления админ панели
 FLASK_ADMIN_SWATCH = "slate"

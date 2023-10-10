@@ -122,3 +122,17 @@ class SiteHeaders(db.Model):
     description = Column(Text)
     content = Column(Text)
     enabled = Column(Boolean, default=False)
+
+
+class FooterContactLinks(db.Model):
+    __tablename__ = "footer_icons"
+    id = Column(
+        Integer,
+        primary_key=True,
+        nullable=False,
+        unique=True,
+        autoincrement=True,
+    )
+    name = Column(String(30))
+    bootstrap_ico = Column(String(20))
+    link = Column(String(100))
