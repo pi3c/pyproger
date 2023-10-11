@@ -47,12 +47,7 @@ def get_all_posts_by_tag(tag, page, per_page):
 
 
 def get_page(slug):
-    page_query = (
-        db.session.query(Page)
-        .filter(Post.published.is_(True))
-        .filter(Page.slug == slug)
-        .one_or_none()
-    )
+    page_query = db.session.query(Page).filter(Page.slug == slug).one_or_none()
     return page_query
 
 
