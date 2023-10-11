@@ -1,4 +1,7 @@
+# тестовые файлы исключаем
 pyproger/upload/*
+!pyproger/upload/.gitkeep
+
 config.ini
 data/
 
