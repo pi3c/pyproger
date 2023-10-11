@@ -1,4 +1,6 @@
-pyproger/upload/*
+pyproger/uploads/*
+!pyproger/uploads/.gitkeep
+
 config.ini
 data/
 

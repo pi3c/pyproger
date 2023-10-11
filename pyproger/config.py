@@ -1,7 +1,7 @@
 import os
 
 # Настройки блога
-MYLIPOSTS_ON_PAGE = 6
+POSTS_ON_PAGE = 6
 
 # Тема оформления админ панели
 FLASK_ADMIN_SWATCH = "slate"
