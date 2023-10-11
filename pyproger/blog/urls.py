@@ -91,10 +91,12 @@ def get_posts_by_tag(page=1, tag=None):
 
     per_page = current_app.config.get("POSTS_ON_PAGE")
     posts, total = get_all_posts_by_tag(tag, page, per_page)
-    total_pages = total // per_page + [0, 1][total % per_page != 0]
 
     if posts is None:
         abort(404)
+
+    total_pages = total // per_page + [0, 1][total % per_page != 0]
+
     list_pages = [
         x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
     ]
