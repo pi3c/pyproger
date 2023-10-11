@@ -40,7 +40,11 @@ SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = False
 LANGUAGES = ["ru"]
 BABEL_TRANSLATION_DIRECTORIES = os.path.join(os.path.curdir, "translations")
 
+basedir = os.path.abspath(os.path.dirname(__file__))
 CKEDITOR_PKG_TYPE = "full"
 CKEDITOR_SERVE_LOCAL = True
 CKEDITOR_ENABLE_CODESNIPPET = True
 CKEDITOR_CODE_THEME = "monokai_sublime"
+CKEDITOR_FILE_UPLOADER = "upload"
+# app.config['CKEDITOR_ENABLE_CSRF'] = True  # if you want to enable CSRF protect, uncomment this line
+UPLOADED_PATH = os.path.join(basedir, "uploads")
