@@ -38,12 +38,10 @@ def get_all_posts_by_tag(tag, page, per_page):
         .order_by(Post.create_datetime.desc())
         .paginate(page=page, per_page=per_page, error_out=True)
     )
-    total_pages = (
-        posts_query.total // per_page + [0, 1][posts_query.total % per_page != 0]
-    )
     if posts_query.total == 0:
-        return None, None
-    return posts_query, total_pages
+        return None, False
+    print(posts_query.total)
+    return posts_query, posts_query.total
 
 
 def get_page(slug):

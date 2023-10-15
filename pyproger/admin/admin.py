@@ -1,5 +1,4 @@
 from flask_admin import Admin
-from flask_ckeditor import CKEditor
 
 admin = Admin(
     name="Админ панель",

@@ -8,5 +8,6 @@
 {% block tail %}
   {{ super() }}
   {{ ckeditor.load() }}
-  {{ ckeditor.config(name='text')}}
+  {{ ckeditor.config(name='title', serve_local=True, pkg_type='basic')}}
+  {{ ckeditor.config(name='description', serve_local=True, pkg_type='basic')}}
 {% endblock %}

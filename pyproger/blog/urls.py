@@ -29,10 +29,10 @@ def index(page=1):
     session["back_url"] = request.url
     per_page = current_app.config.get("POSTS_ON_PAGE")
 
-    posts, total_pages = get_paginated_posts(page, per_page)
-    list_pages = [
-        x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
-    ]
+    posts, total = get_paginated_posts(page, per_page)
+    total_pages = total // per_page + [0, 1][total % per_page != 0]
+
+    list_pages = [x for x in range(1, total_pages + 1)]
     return render_template(
         "blog/index.html",
         title=f'{current_app.config.get("BRAND")} - разговоры про питон',

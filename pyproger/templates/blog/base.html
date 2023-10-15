@@ -36,17 +36,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="text-body navbar-nav me-auto mb-2 mb-lg-0 p-3">
              <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white p-2 link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                  href="{{ url_for('bp_blog.index')}}">Главная
               </a>
             </li>
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white p-2 link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                 href="{{ url_for('bp_blog.get_all_tags')}}">Статьи по темам</a>
             </li>
             {% for m in menu_items %}
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white p-2 link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                  href="/{{m.slug}}">{{m.name}}</a>
             </li>
             {% endfor %}
@@ -78,27 +78,27 @@
     <!-- Section: Social media -->
 
         <!-- Section: Links -->
-    <section class="">
+    <section class="container-fluid justify-content-center">
       <!--Grid row-->
       <div class="row">
         <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
           <h5 class="text-white">{{ menu_title }}.ru</h5>
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                  href="{{ url_for('bp_blog.index')}}">Главная
               </a>
             </li>
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                 href="{{ url_for('bp_blog.get_all_tags')}}">Статьи по темам</a>
             </li>
             
             {% for m in menu_items %}
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                  href="/{{m.slug}}">{{m.name}}</a>
             </li>
             {% endfor %}
@@ -107,24 +107,24 @@
         <!--Grid column-->
 
         <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+        <div class="col-lg-6 col-md-6 mb-4 mb-md-0">
           <h5 class="text-white">Вебхостинг</h5>
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                 href="https://www.reg.ru/?rlink=reflink-11750021">Российский регистратор reg.ru </a>
             </li>
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                 href="https://www.reg.ru/domain/new/?rlink=reflink-11750021">Регистрация доменов</a>
             </li>
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                 href="https://www.reg.ru/hosting/?rlink=reflink-11750021">Веб хостинг сайтов</a>
             </li>
             <li>
-              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white" 
+              <a class="link-offset-2 link-underline link-underline-opacity-0 text-white link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" 
                 href="https://www.reg.ru/vps/cloud/?rlink=reflink-11750021">Облачные серверы</a>
             </li>
           </ul>
