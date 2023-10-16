@@ -1,15 +1,7 @@
 import locale
 import re
 
-from flask import (
-    abort,
-    current_app,
-    redirect,
-    render_template,
-    request,
-    session,
-    url_for,
-)
+from flask import abort, current_app, redirect, render_template, request, url_for
 
 from ..dbase.database import (
     get_all_posts_by_tag,
@@ -26,7 +18,6 @@ locale.setlocale(locale.LC_ALL, "")
 @bp.route("/", methods=["GET"], defaults={"page": 1})
 @bp.route("/<int:page>")
 def index(page=1):
-    session["back_url"] = request.url
     per_page = current_app.config.get("POSTS_ON_PAGE")
 
     posts, total = get_paginated_posts(page, per_page)
