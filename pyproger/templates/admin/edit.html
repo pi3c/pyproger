@@ -8,7 +8,7 @@
 {% block tail %}
   {{ super() }}
   {{ ckeditor.load() }}
-  {{ ckeditor.config(name='title', serve_local=True, pkg_type='basic')}}
-  {{ ckeditor.config(name='description', serve_local=True, pkg_type='basic')}}
-  {{ ckeditor.config(name='text', serve_local=False, pkg_type='full-all')}}
+  {{ ckeditor.config(name='title')}}
+  {{ ckeditor.config(name='description')}}
+  {{ ckeditor.config(name='text')}}
 {% endblock %}
