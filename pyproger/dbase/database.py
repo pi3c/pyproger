@@ -7,7 +7,7 @@ def get_paginated_posts(page, per_page):
         db.session.query(Post, User)
         .join(User, Post.author == User.id)
         .filter(Post.published.is_(True))
-        .order_by(Post.create_datetime.desc())
+        .order_by(Post.update_datetime.desc())
         .paginate(page=page, per_page=per_page, error_out=True)
     )
     return all_post_query, all_post_query.total
@@ -35,7 +35,7 @@ def get_all_posts_by_tag(tag, page, per_page):
         .join(User, Post.author == User.id)
         .filter(Post.published.is_(True))
         .filter(Post.tags.any(Tag.tag == tag))
-        .order_by(Post.create_datetime.desc())
+        .order_by(Post.update_datetime.desc())
         .paginate(page=page, per_page=per_page, error_out=True)
     )
     if posts_query.total == 0:
