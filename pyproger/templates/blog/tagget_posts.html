@@ -1,0 +1,23 @@
+{% extends 'blog/index.html' %}
+
+{% block nav_pages %}
+{% if posts.has_prev %}
+<li class="page-item"><a class="page-link" href="/tag/{{tag}}/1">&lt;&lt;</a></li>
+{% else %}
+<li class="page-item disabled"><a class="page-link">&lt;&lt;</a></li>
+{% endif %}
+
+{% for i in list_pages %}
+{% if i == page %}
+<li class="page-item active"><a class="page-link" href="/tag/{{tag}}/{{i}}">{{ i }}</a></li>
+{% else %}
+<li class="page-item"><a class="page-link" href="/tag/{{tag}}/{{i}}">{{ i }}</a></li>
+{% endif %}
+{% endfor %}
+
+{% if posts.has_next %}
+<li class="page-item"><a class="page-link" href="/tag/{{tag}}/{{total_pages}}">&gt;&gt;</a></li>
+{% else %}
+<li class="page-item disabled"><a class="page-link">&gt;&gt;</a></li>
+{% endif %}
+{% endblock nav_pages %}

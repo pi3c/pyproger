@@ -18,7 +18,7 @@
         </a>
         <small>
           {% for t in p.Post.tags %}
-            <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="{{url_for(".get_posts_by_tag", tag=t.tag )}}">
+          <a class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" href="/tag/{{t.tag}}/1">
               #{{t.tag}}
             </a>
           {% endfor %}<br>
@@ -33,25 +33,27 @@
     
   <nav class="container p-3">
     <ul class="pagination  justify-content-center"
+    {% block nav_pages %}
       {% if posts.has_prev %}
-        <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=posts.prev_num)}}">&lt;&lt;</a></li>
+        <li class="page-item"><a class="page-link" href="/1">&lt;&lt;</a></li>
       {% else %}
         <li class="page-item disabled"><a class="page-link" >&lt;&lt;</a></li>
       {% endif %} 
       
       {% for i in list_pages %}
           {% if i == page %}
-            <li class="page-item active"><a class="page-link" href="{{ url_for(".index", page=i)}}">{{ i }}</a></li>
+            <li class="page-item active"><a class="page-link" href="/{{i}}">{{ i }}</a></li>
           {% else %}
-            <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=i)}}">{{ i }}</a></li>
+          <li class="page-item"><a class="page-link" href="/{{i}}">{{ i }}</a></li>
           {% endif %}
       {% endfor %}
       
       {% if posts.has_next %}
-        <li class="page-item"><a class="page-link" href="{{ url_for(".index", page=posts.next_num)}}">&gt;&gt;</a></li>
+      <li class="page-item"><a class="page-link" href="/{{total_pages}}">&gt;&gt;</a></li>
       {% else %}
         <li class="page-item disabled"><a class="page-link" >&gt;&gt;</a></li>
-      {% endif %} 
+      {% endif %}
+    {% endblock nav_pages %}
     </ul>
   </nav>
 {% endblock %}

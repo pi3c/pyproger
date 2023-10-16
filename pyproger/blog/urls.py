@@ -15,7 +15,7 @@ from .blog import bp
 locale.setlocale(locale.LC_ALL, "")
 
 
-@bp.route("/", methods=["GET"], defaults={"page": 1})
+@bp.route("/")
 @bp.route("/<int:page>")
 def index(page=1):
     per_page = current_app.config.get("POSTS_ON_PAGE")
@@ -23,7 +23,9 @@ def index(page=1):
     posts, total = get_paginated_posts(page, per_page)
     total_pages = total // per_page + [0, 1][total % per_page != 0]
 
-    list_pages = [x for x in range(1, total_pages + 1)]
+    list_pages = [
+        x for x in range(1, total_pages + 1) if x >= page - 2 and x <= page + 2
+    ]
     return render_template(
         "blog/index.html",
         title=f'{current_app.config.get("BRAND")} - разговоры про питон',
@@ -84,14 +86,9 @@ def get_all_tags():
     )
 
 
-@bp.route("/tag/", methods=["GET"], defaults={"page": 1})
-@bp.route("/tag/<path:tag>")
+@bp.route("/tag/")
+@bp.route("/tag/<path:tag>/<int:page>")
 def get_posts_by_tag(page=1, tag=None):
-    if tag is None:
-        tag = request.args.get("tag")
-        if tag is None:
-            return redirect(url_for(".get_all_tags"))
-
     per_page = current_app.config.get("POSTS_ON_PAGE")
     posts, total = get_all_posts_by_tag(tag, page, per_page)
 
@@ -105,13 +102,14 @@ def get_posts_by_tag(page=1, tag=None):
     ]
 
     return render_template(
-        "blog/index.html",
+        "blog/tagget_posts.html",
         title=f'{current_app.config.get("BRAND")} - посты по {tag}',
         headers=current_app.config.get("SITE_HEADERS"),
         menu_title=current_app.config.get("BRAND"),
         menu_items=current_app.config.get("MENU_ITEMS"),
         posts=posts,
         page=page,
+        tag=tag,
         total_pages=total_pages,
         list_pages=list_pages,
         mylinks=current_app.config.get("MYLINKS"),

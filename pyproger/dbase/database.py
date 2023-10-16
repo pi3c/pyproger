@@ -40,7 +40,6 @@ def get_all_posts_by_tag(tag, page, per_page):
     )
     if posts_query.total == 0:
         return None, False
-    print(posts_query.total)
     return posts_query, posts_query.total
 
 
