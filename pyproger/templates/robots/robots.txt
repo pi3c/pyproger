@@ -5,6 +5,7 @@ Disallow: /static/
 Disallow: /post/$
 Disallow: /tag/
 Disallow: /tags/
+Allow: /post/*
 Allow: /static/*.css
 Allow: /static/*.js
 Allow: /static/*.png
@@ -18,6 +19,7 @@ Disallow: /static/
 Disallow: /post/$
 Disallow: /tag/
 Disallow: /tags/
+Allow: /post/*
 Allow: /static/*.css
 Allow: /static/*.js
 Allow: /static/*.png
@@ -31,6 +33,7 @@ Disallow: /static/
 Disallow: /post/$
 Disallow: /tag/
 Disallow: /tags/
+Allow: /post/*
 Crawl-Delay: 5
 
 Sitemap: https://pyproger.ru/sitemap.xml
