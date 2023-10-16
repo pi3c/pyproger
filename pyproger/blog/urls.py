@@ -12,7 +12,7 @@ from ..dbase.database import (
 )
 from .blog import bp
 
-locale.setlocale(locale.LC_ALL, "")
+locale.setlocale(locale.LC_ALL, ("ru", "utf-8"))
 
 
 @bp.route("/")
