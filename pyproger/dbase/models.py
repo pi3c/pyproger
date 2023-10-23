@@ -72,6 +72,7 @@ class Post(db.Model):
     author = Column(Integer, db.ForeignKey("user.id"))
     slug = Column(String(100), nullable=False)
     title = Column(Text, nullable=False)
+    header_description = Column(Text)
     description = Column(Text, nullable=False)
     published = Column(Boolean, default=False)
     tags = db.relationship("Tag", secondary=tag_post)
@@ -99,6 +100,7 @@ class Page(db.Model):
         unique=True,
         autoincrement=True,
     )
+    header_description = Column(Text)
     name = Column(String(20))
     slug = Column(String(50), nullable=False)
     text = Column(Text)

@@ -1,15 +1,11 @@
 import locale
 import re
 
-from flask import abort, current_app, redirect, render_template, request, url_for
+from flask import (abort, current_app, redirect, render_template, request,
+                   url_for)
 
-from ..dbase.database import (
-    get_all_posts_by_tag,
-    get_page,
-    get_paginated_posts,
-    get_post,
-    get_tags,
-)
+from ..dbase.database import (get_all_posts_by_tag, get_page,
+                              get_paginated_posts, get_post, get_tags)
 from .blog import bp
 
 locale.setlocale(locale.LC_ALL, ("ru", "utf-8"))
@@ -29,6 +25,7 @@ def index(page=1):
     return render_template(
         "blog/index.html",
         title=f'{current_app.config.get("BRAND")} - разговоры про питон',
+        header_description="Про изучение python, веб разработку и прочие вещи",
         headers=current_app.config.get("SITE_HEADERS"),
         menu_title=current_app.config.get("BRAND"),
         menu_items=current_app.config.get("MENU_ITEMS"),
@@ -77,6 +74,7 @@ def get_all_tags():
     return render_template(
         "blog/tags.html",
         title=f'{current_app.config.get("BRAND")} - поиск по тэгу',
+        header_description="Выбор статей по тематике",
         headers=current_app.config.get("SITE_HEADERS"),
         menu_title=current_app.config.get("BRAND"),
         tags=tags,
@@ -91,7 +89,6 @@ def get_all_tags():
 def get_posts_by_tag(page=1, tag=None):
     per_page = current_app.config.get("POSTS_ON_PAGE")
     posts, total = get_all_posts_by_tag(tag, page, per_page)
-
     if posts is None:
         abort(404)
 
@@ -104,6 +101,7 @@ def get_posts_by_tag(page=1, tag=None):
     return render_template(
         "blog/tagget_posts.html",
         title=f'{current_app.config.get("BRAND")} - посты по {tag}',
+        header_description=f"Статьи по теме {tag}",
         headers=current_app.config.get("SITE_HEADERS"),
         menu_title=current_app.config.get("BRAND"),
         menu_items=current_app.config.get("MENU_ITEMS"),
@@ -125,6 +123,7 @@ def page(slug=None):
     return render_template(
         "blog/page.html",
         title=f'{current_app.config.get("BRAND")} - {page.name}',
+        header_description=page.header_description,
         headers=current_app.config.get("SITE_HEADERS"),
         menu_title=current_app.config.get("BRAND"),
         menu_items=current_app.config.get("MENU_ITEMS"),

@@ -72,6 +72,7 @@ class PostView(MyAdminView):
         tags="Тэги",
         slug="Слаг",
         title="Заголовок",
+        header_description="description заголовок в head страницы",
         description="Краткое описание статьи",
         author="Автор",
         published="Опубликовано",
@@ -92,6 +93,7 @@ class PostView(MyAdminView):
 class PageView(MyAdminView):
     column_labels = dict(
         name="Название страницы",
+        header_description="description заголовок в head страницы",
         slug="URL страницы",
         text="Содержимое страницы",
     )
