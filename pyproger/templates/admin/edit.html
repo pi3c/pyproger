@@ -1,9 +1,9 @@
 {% extends 'admin/model/edit.html' %}
 
 {% block head %}
-{{ super()}}
-{{ ckeditor.load_code_theme() }}
-{%endblock%}
+  {{ super()}}
+  {{ ckeditor.load_code_theme() }}
+{% endblock head %}
 
 {% block tail %}
   {{ super() }}
@@ -11,4 +11,4 @@
   {{ ckeditor.config(name='title')}}
   {{ ckeditor.config(name='description')}}
   {{ ckeditor.config(name='text', height=700)}}
-{% endblock %}
+{% endblock tail %}

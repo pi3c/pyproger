@@ -1,5 +1,3 @@
-import os
-
 from flask import Blueprint, current_app, request
 from flask_babel import Babel
 

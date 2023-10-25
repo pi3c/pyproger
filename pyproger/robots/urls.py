@@ -1,5 +1,4 @@
 from flask import make_response, render_template
-from sqlalchemy.sql import func
 
 from pyproger.dbase.database import get_posts_for_sitemap
 

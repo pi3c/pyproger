@@ -1,5 +1,3 @@
-import datetime
-
 from flask_security.models import fsqla
 from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text
 from sqlalchemy.sql import func

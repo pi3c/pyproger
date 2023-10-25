@@ -1,11 +1,15 @@
 import locale
 import re
 
-from flask import (abort, current_app, redirect, render_template, request,
-                   url_for)
+from flask import abort, current_app, render_template
 
-from ..dbase.database import (get_all_posts_by_tag, get_page,
-                              get_paginated_posts, get_post, get_tags)
+from ..dbase.database import (
+    get_all_posts_by_tag,
+    get_page,
+    get_paginated_posts,
+    get_post,
+    get_tags,
+)
 from .blog import bp
 
 locale.setlocale(locale.LC_ALL, ("ru", "utf-8"))
