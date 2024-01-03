@@ -1,6 +1,5 @@
 import os
 
-from dotenv import load_dotenv
 from flask import Flask, render_template_string, request, send_from_directory, url_for
 from flask_admin import helpers
 from flask_ckeditor import CKEditor, upload_fail, upload_success
@@ -12,27 +11,20 @@ from pyproger.dbase import Role, User, db, user_datastore
 from pyproger.dbase.database import get_footer_links, get_headers, get_menu_items
 from pyproger.dbase.models import FooterContactLinks, Page, Post, SiteHeaders, Tag
 
+from pyproger.config import settings
 
-def create_app(test_config=None):
+def create_app():
     app = Flask(__name__)
 
-    if test_config is None:
-        app.config.from_pyfile("config.py", silent=True)
-        dotenv_path = os.path.join(os.path.abspath(os.curdir), ".env")
-        if os.path.exists(dotenv_path):
-            load_dotenv(dotenv_path)
-            app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
-            app.config["SECURITY_PASSWORD_SALT"] = os.getenv("SECURITY_PASSWORD_SALT")
-            app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("SQLALCHEMY_DATABASE_URI")
-            app.config["MYCOPYRIGHT"] = {
-                "year": os.getenv("COPYRIGHT_YEAR"),
-                "name": os.getenv("COPYRIGHT_NAME"),
-                "link": os.getenv("COPYRIGHT_LINK"),
-                "city": os.getenv("COPYRIGHT_CITY"),
-            }
-            app.config["BRAND"] = os.getenv("BRAND")
-    else:
-        app.config.from_mapping(test_config)
+    app.config["SQLALCHEMY_DATABASE_URI"] = settings.DB_URL
+    app.config["MYCOPYRIGHT"] = {
+                    "year": settings.COPYRIGHT_YEAR,
+                    "name": settings.COPYRIGHT_NAME,
+                    "link": settings.COPYRIGHT_LINK,
+                    "city": settings.COPYRIGHT_CITY,
+    }
+    for key, val in settings.__dict__.items():
+        app.config[key] = val
 
     from .translations import babel
     from .translations import bp as bp_translate

@@ -1,50 +1,81 @@
 import os
 
-# Настройки блога
-POSTS_ON_PAGE = 6
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-# Тема оформления админ панели
-FLASK_ADMIN_SWATCH = "slate"
 
-# Тестовый ключ
-SECRET_KEY = "Test_secret_key"
+class Settings(BaseSettings):
+    #  app settings
+    MODE: str
+    
+    BRAND: str
+    COPYRIGHT_YEAR: int
+    COPYRIGHT_NAME: str
+    COPYRIGHT_LINK: str
+    COPYRIGHT_CITY: str
+    POSTS_ON_PAGE: int = 6
 
-SQLALCHEMY_ECHO = False
+    #  sqlalchemy cofiguration
+    DB_HOST: str
+    DB_PORT: int
+    DB_USER: str
+    DB_PASS: str
+    DB_NAME: str
+    SQLALCHEMY_ECHO: bool = False
+    SQLALCHEMY_TRACK_MODIFICATIONS: bool = False
 
-# Настройки Flask-Security
-SECURITY_URL_PREFIX = "/admin"
-SECURITY_PASSWORD_HASH = "pbkdf2_sha512"
-SECURITY_PASSWORD_SALT = "Password_salt"
-SECURITY_TRACKABLE = True
+    #  Flask config    
+    SECRET_KEY: str
+    
+    #  Flask-Admin config
+    FLASK_ADMIN_SWATCH: str = "slate"
+    
+    # Flask-Security-two config
+    SECURITY_PASSWORD_SALT: str
+    SECURITY_URL_PREFIX: str = "/admin"
+    SECURITY_PASSWORD_HASH: str = "pbkdf2_sha512"
+    SECURITY_TRACKABLE: bool = True
 
-SECURITY_LOGIN_URL = "/login/"
-SECURITY_LOGOUT_URL = "/logout/"
-SECURITY_REGISTER_URL = "/register/"
+    SECURITY_LOGIN_URL: str = "/login/"
+    SECURITY_LOGOUT_URL: str = "/logout/"
+    SECURITY_REGISTER_URL: str = "/register/"
 
-SECURITY_POST_LOGIN_VIEW = "/admin/"
-SECURITY_POST_LOGOUT_VIEW = "/admin/"
-SECURITY_POST_REGISTER_VIEW = "/admin/"
-SECURITY_POST_RESET_VIEW = "/admin/"
+    SECURITY_POST_LOGIN_VIEW: str = "/admin/"
+    SECURITY_POST_LOGOUT_VIEW: str = "/admin/"
+    SECURITY_POST_REGISTER_VIEW: str = "/admin/"
+    SECURITY_POST_RESET_VIEW: str = "/admin/"
 
-SECURITY_REGISTERABLE = False
-SECURITY_CHANGEABLE = True
-SECURITY_RECOVERABLE = False
-SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECURITY_REGISTERABLE: bool = False
+    SECURITY_CHANGEABLE: bool = True
+    SECURITY_RECOVERABLE: bool = False
 
-SECURITY_SEND_REGISTER_EMAIL = False
-SECURITY_SEND_PASSWORD_CHANGE_EMAIL = False
-SECURITY_SEND_PASSWORD_RESET_EMAIL = False
-SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL = False
+    SECURITY_SEND_REGISTER_EMAIL: bool = False
+    SECURITY_SEND_PASSWORD_CHANGE_EMAIL: bool = False
+    SECURITY_SEND_PASSWORD_RESET_EMAIL: bool = False
+    SECURITY_SEND_PASSWORD_RESET_NOTICE_EMAIL: bool = False
 
-# Настройки Flask-Babel необходимые для русификации админки
-LANGUAGES = ["ru"]
-BABEL_TRANSLATION_DIRECTORIES = os.path.join(os.path.curdir, "translations")
+    # Настройки Flask-Babel необходимые для русификации админки
+    LANGUAGES: list = ["ru"]
+    BABEL_TRANSLATION_DIRECTORIES: str = os.path.join(os.path.curdir, "translations")
 
-basedir = os.path.abspath(os.path.dirname(__file__))
-CKEDITOR_PKG_TYPE = "full"
-CKEDITOR_SERVE_LOCAL = True
-CKEDITOR_ENABLE_CODESNIPPET = True
-CKEDITOR_CODE_THEME = "monokai_sublime"
-CKEDITOR_FILE_UPLOADER = "upload"
-# app.config['CKEDITOR_ENABLE_CSRF'] = True  # if you want to enable CSRF protect, uncomment this line
-UPLOADED_PATH = os.path.join(basedir, "uploads")
+    #  Flask-ckeditor config
+    basedir: str = os.path.abspath(os.path.dirname(__file__))
+    CKEDITOR_PKG_TYPE: str = "full"
+    CKEDITOR_SERVE_LOCAL: bool = True
+    CKEDITOR_ENABLE_CODESNIPPET: bool = True
+    CKEDITOR_CODE_THEME: str = "monokai_sublime"
+    CKEDITOR_FILE_UPLOADER: str = "upload"
+    # app.config['CKEDITOR_ENABLE_CSRF'] = True  # if you want to enable CSRF protect, uncomment this line
+    UPLOADED_PATH: str = os.path.join(basedir, "uploads")
+    
+    @property
+    def DB_URL(self):
+        return f"postgresql+psycopg2://{self.DB_USER}:{self.DB_PASS}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+
+    model_config = SettingsConfigDict(env_file=".env")
+    
+
+
+settings = Settings()
+
+
+
