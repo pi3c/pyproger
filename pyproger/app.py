@@ -1,8 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from flask import (Flask, render_template_string, request, send_from_directory,
-                   url_for)
+from flask import Flask, render_template_string, request, send_from_directory, url_for
 from flask_admin import helpers
 from flask_ckeditor import CKEditor, upload_fail, upload_success
 from flask_migrate import Migrate
@@ -10,10 +9,8 @@ from flask_security.core import Security
 
 from pyproger.admin.views import FooterLinksView
 from pyproger.dbase import Role, User, db, user_datastore
-from pyproger.dbase.database import (get_footer_links, get_headers,
-                                     get_menu_items)
-from pyproger.dbase.models import (FooterContactLinks, Page, Post, SiteHeaders,
-                                   Tag)
+from pyproger.dbase.database import get_footer_links, get_headers, get_menu_items
+from pyproger.dbase.models import FooterContactLinks, Page, Post, SiteHeaders, Tag
 
 
 def create_app(test_config=None):
@@ -21,7 +18,7 @@ def create_app(test_config=None):
 
     if test_config is None:
         app.config.from_pyfile("config.py", silent=True)
-        dotenv_path = os.path.join(os.path.dirname(__file__), ".env")
+        dotenv_path = os.path.join(os.path.abspath(os.curdir), ".env")
         if os.path.exists(dotenv_path):
             load_dotenv(dotenv_path)
             app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -58,8 +55,14 @@ def create_app(test_config=None):
 
     admin.init_app(app)
 
-    from pyproger.admin.views import (HeadersView, PageView, PostView,
-                                      RoleView, TagView, UserView)
+    from pyproger.admin.views import (
+        HeadersView,
+        PageView,
+        PostView,
+        RoleView,
+        TagView,
+        UserView,
+    )
 
     admin.add_view(
         RoleView(
